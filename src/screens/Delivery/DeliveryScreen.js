@@ -1,55 +1,24 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
   Image,
+  ScrollView,
+  TouchableOpacity,
   Platform,
 } from "react-native";
 import { Colors, Typography } from "../../styles";
-import Splashscreen from "../Splashscreen/SplashScreen";
 
 import Header from '../../assets/svg/Header.svg';
+import { Dimensions } from "react-native";
 
-const EpaymentScreen = ({ navigation }) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const loader = useCallback(async () => {
-    setError(null);
-    try {
-      console.log("");
-    } catch (err) {
-       setTimeout(() => {
-        if(err) return console.warn(err);
-       },1000);
-    }
-  }, [setLoading, setError]);
-
-  useEffect(() => {
-    setLoading(true);
-    loader()
-      .then(() => {
-        setTimeout(() => {
-          setLoading(false);
-        }, 2500);
-      })
-      .catch((err) => {
-         if(err) return console.log(err);
-      }).finally(() => {
-          console.log('');
-      })
-  }, [loader]);
-
-  if (loading) {
-    return <Splashscreen />;
-  }
-
+const DeliveryScreen = ({ navigation }) => {
+    
   return (
     <View style={styles.screen}>
       <View style={styles.imageContainer}>
-      <Image source={require('../../assets/images/Header.png')}
+        <Image source={require('../../assets/images/Header-2.png')}
           style={styles.image}
         />
       </View>
@@ -62,22 +31,21 @@ const EpaymentScreen = ({ navigation }) => {
           </Text>
         </View>
         <View style={styles.row}>
-          <TouchableOpacity style={styles.smallCircle}>
-            <Text>.</Text>
-          </TouchableOpacity>
           <TouchableOpacity
             style={{ ...styles.smallCircle, ...styles.circleOpacity }}
-            onPress={() => navigation.navigate('Delivery')}
-          />
+            onPress={() => navigation.goBack()}
+          ></TouchableOpacity>
+          <TouchableOpacity style={styles.smallCircle} />
           <TouchableOpacity
             style={{ ...styles.smallCircle, ...styles.circleOpacity }}
+            onPress={() => navigation.navigate("Welcome")}
           />
         </View>
         <View style={styles.footer}>
           <View style={styles.btn}>
             <TouchableOpacity
               style={styles.btnPrimary}
-              onPress={() => navigation.navigate("Delivery")}
+              onPress={() => navigation.navigate("Welcome")}
             >
               <Text style={styles.btnTitle}>Create Account</Text>
             </TouchableOpacity>
@@ -85,7 +53,6 @@ const EpaymentScreen = ({ navigation }) => {
           <View style={styles.btn}>
             <TouchableOpacity
               style={{ ...styles.btnPrimary, ...styles.btnLight }}
-              onPress={() => navigation.navigate('Welcome')}
             >
               <Text style={{ ...styles.btnTitle, ...styles.textDark }}>
                 Sign In as Guest
@@ -110,9 +77,9 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: "100%",
+    width: Dimensions.get('window').width,
     height: "100%",
-    resizeMode: "cover",
+   // resizeMode: "cover",
   },
 
   divider: {
@@ -204,4 +171,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EpaymentScreen;
+export default DeliveryScreen;

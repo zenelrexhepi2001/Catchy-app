@@ -1,7 +1,8 @@
 import React from 'react'; 
-import {View,Text} from 'react-native'; 
 import { useFonts } from 'expo-font';
 import CatchyNavigationScreens from './navigation/index';
+import {Provider} from 'react-redux';
+import {store} from './store/index';
 
 const App = props => {
     //fonts
@@ -15,7 +16,9 @@ const App = props => {
     }
 
     return (
+        <Provider store={store}>
         <CatchyNavigationScreens/>
+        </Provider>
     )
 }
 
