@@ -3,6 +3,7 @@ import { scaleFont } from "./mixins";
 //Font family
 export const FONT_FAMILY_AVENIR_EXTRA_BOLD = 'Avernir';
 export const FONT_FAMILY_AVENIR_NORMAL = 'AvernirNormal';
+export const FONT_FAMILY_OUTFIT = 'OutFit';
 
 //Font weight
 export const FONT_WEIGHT_800 = '800';

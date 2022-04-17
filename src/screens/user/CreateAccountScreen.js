@@ -153,7 +153,7 @@ const CreateAccountScreen = (props) => {
                   initialValue=""
                 />
               </View>
-              <TouchableOpacity style={styles.btnSecondary}>
+              <TouchableOpacity style={styles.btnSecondary} onPress={() => props.navigation.navigate('verification-code')}>
                 <Text style={styles.btnSecondaryTitle}>Create Account</Text>
               </TouchableOpacity>
             </ScrollView>

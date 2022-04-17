@@ -9,6 +9,7 @@ const App = props => {
     const [loaded] = useFonts({
         Avernir: require('./assets/fonts/AvenirLTStd-Black.otf'),
         AvernirNormal: require('./assets/fonts/AvenirLTStd-Book.otf'),
+        OutFit: require('./assets/fonts/Outfit-Medium.otf')
     });
 
     if(!loaded) {

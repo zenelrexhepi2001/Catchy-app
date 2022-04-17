@@ -11,6 +11,7 @@ import CreateAccountScreen from "../screens/user/CreateAccountScreen";
 import Left from '../assets/svg/left.svg';
 
 import { Colors } from "../styles";
+import VerificationCodeScreen from "../screens/user/verificationCodeScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,21 @@ const CatchyNavigationScreens = () => {
           name="create-account"
           component={CreateAccountScreen}
           options={{
+            title: "",
+            headerShadowVisible: GET_HIDDEN_SHADOW,
+            headerLeft: () => (
+              <TouchableOpacity
+                style={styles.circle}
+              >
+                <Left style={styles.left} />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        <Stack.Screen
+           name='verification-code'
+           component={VerificationCodeScreen}
+           options={{
             title: "",
             headerShadowVisible: GET_HIDDEN_SHADOW,
             headerLeft: () => (
