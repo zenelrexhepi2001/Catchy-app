@@ -11,7 +11,9 @@ import { Colors, Typography } from "../../styles";
 import { ModalSuccess } from "../../components/organisms";
 
 const VerificationCodeScreen = (props) => {
+
   const [isVisible, setIsVisible] = useState(false);
+  
   return (
     <View style={styles.screen}>
       <View style={styles.container}>
@@ -66,7 +68,9 @@ const VerificationCodeScreen = (props) => {
           </TouchableOpacity>
           <Text style={styles.footerTitle}>
             Didn’t receive the code?
-            <Text style={{ fontWeight: "bold", color: Colors.TEXT_COLOR }}>
+            <Text style={{ fontWeight: "bold", color: Colors.TEXT_COLOR }}
+             onPress={() => props.navigation.navigate('Login')}
+            >
               Resend
             </Text>
           </Text>

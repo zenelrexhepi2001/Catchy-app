@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback, useState, useEffect } from "react";
+import React, { useReducer, useCallback } from "react";
 import {
   View,
   Text,
@@ -8,17 +8,14 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 
-//Components
 import { Colors, Typography } from "../../styles";
 import { Input } from "../../components/molecules";
 
 //Images svg
-import User from "../../assets/svg/user.svg";
 import Phone from "../../assets/svg/phone.svg";
 import Password from "../../assets/svg/password.svg";
 import Google from "../../assets/svg/google.svg";
-
-import * as GoogleSignIn from 'expo-google-sign-in';
+import Apple from "../../assets/svg/apple.svg";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -28,30 +25,31 @@ const formReducer = (state, action) => {
       ...state.inputValues,
       [action.input]: action.value,
     };
+
     const updatedValidites = {
       ...state.inputValidites,
       [action.input]: action.isValid,
     };
+
     let updatedFormIsValid = true;
     for (const key in updatedValidites) {
       updatedFormIsValid = updatedFormIsValid && updatedValidites[key];
     }
+
     return {
       formIsValid: updatedFormIsValid,
       inputValidites: updatedValidites,
       inputValues: updatedValues,
     };
+
   }
   return state;
 };
-
-const CreateAccountScreen = (props) => {
-
+const LoginScreen = (props) => {
   const GET_VALUE_VALIDITES = false;
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
-      name: "",
       phoneNumber: "",
       password: "",
     },
@@ -61,7 +59,9 @@ const CreateAccountScreen = (props) => {
       phoneNumber: GET_VALUE_VALIDITES,
       password: GET_VALUE_VALIDITES,
     },
+
     formIsValid: GET_VALUE_VALIDITES,
+    
   });
 
   const inputChangeHandler = useCallback(
@@ -75,7 +75,6 @@ const CreateAccountScreen = (props) => {
     },
     [dispatchFormState]
   );
-
   return (
     <View style={styles.screen}>
       <View style={styles.container}>
@@ -88,16 +87,14 @@ const CreateAccountScreen = (props) => {
         <View style={styles.divider}>
           <View style={styles.buttonsGroup}>
             <View style={styles.flex}>
-              <TouchableOpacity style={styles.btnPrimary}>
-                <Text style={{ ...styles.btnTitle, ...styles.boldTitle }}>
-                  Sign Up
-                </Text>
-              </TouchableOpacity>
               <TouchableOpacity
                 style={{ ...styles.btnPrimary, ...styles.btnLight }}
-                onPress={() => props.navigation.navigate('Login')}
+                onPress={() => props.navigation.navigate("create-account")}
               >
-                <Text style={{ ...styles.btnTitle, ...styles.secondaryTitle }}>
+                <Text style={styles.btnTitle}>Sign Up</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.btnPrimary}>
+                <Text style={{ ...styles.btnTitle, ...styles.boldTitle }}>
                   Sign In
                 </Text>
               </TouchableOpacity>
@@ -107,21 +104,6 @@ const CreateAccountScreen = (props) => {
         <View style={styles.form}>
           <KeyboardAvoidingView>
             <ScrollView>
-              <View style={styles.formControlElement}>
-                <Text style={styles.label}>Full Name</Text>
-                <User style={styles.icon} />
-                <Input
-                  id="name"
-                  placeholder="Enter your name"
-                  keyboardType="default"
-                  required
-                  name
-                  autoCapitalize="none"
-                  errorText="Please enter a valid Name"
-                  onInputChange={inputChangeHandler}
-                  initialValue=""
-                />
-              </View>
               <View style={styles.formControlElement}>
                 <Text style={styles.label}>Phone Number</Text>
                 <Phone style={styles.icon} />
@@ -154,7 +136,10 @@ const CreateAccountScreen = (props) => {
                   initialValue=""
                 />
               </View>
-              <TouchableOpacity style={styles.btnSecondary} onPress={() => props.navigation.navigate('verification-code')}>
+              <TouchableOpacity
+                style={styles.btnSecondary}
+                onPress={() => props.navigation.navigate("verification-code")}
+              >
                 <Text style={styles.btnSecondaryTitle}>Create Account</Text>
               </TouchableOpacity>
             </ScrollView>
@@ -172,6 +157,12 @@ const CreateAccountScreen = (props) => {
             <Text style={{ ...styles.btnSecondaryTitle, ...styles.dark }}>
               Sign up with google
             </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ ...styles.btnSecondary, ...styles.btnFlexElement }}
+          >
+            <Apple style={styles.logo} />
+            <Text style={styles.btnSecondaryTitle}>Sign up with Apple</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -306,8 +297,8 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-    alignItems: "center",
     flex: 1,
+    alignItems: "center",
     justifyContent: "flex-end",
   },
 
@@ -341,6 +332,12 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
     marginRight: 10,
   },
+
+  btnFlexElement: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 14,
+  },
 });
 
-export default CreateAccountScreen;
+export default LoginScreen;

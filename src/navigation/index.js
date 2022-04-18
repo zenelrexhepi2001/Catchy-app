@@ -1,17 +1,13 @@
-import { TouchableOpacity, Image, StyleSheet } from "react-native";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import WelcomeScreen from "../screens/Welcome/WelcomeScreen";
 import DeliveryScreen from "../screens/Delivery/DeliveryScreen";
 import EpaymentScreen from "../screens/E-payment/EpaymentScreen";
-import Splashscreen from "../screens/Splashscreen/SplashScreen";
 import CreateAccountScreen from "../screens/user/CreateAccountScreen";
-
-import Left from '../assets/svg/left.svg';
-
-import { Colors } from "../styles";
 import VerificationCodeScreen from "../screens/user/verificationCodeScreen";
+import {HeaderButton} from '../components/atoms'
+import LoginScreen from "../screens/user/LoginScreen";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -50,11 +46,7 @@ const CatchyNavigationScreens = () => {
             title: "",
             headerShadowVisible: GET_HIDDEN_SHADOW,
             headerLeft: () => (
-              <TouchableOpacity
-                style={styles.circle}
-              >
-                <Left style={styles.left} />
-              </TouchableOpacity>
+              <HeaderButton/>
             ),
           }}
         />
@@ -65,11 +57,18 @@ const CatchyNavigationScreens = () => {
             title: "",
             headerShadowVisible: GET_HIDDEN_SHADOW,
             headerLeft: () => (
-              <TouchableOpacity
-                style={styles.circle}
-              >
-                <Left style={styles.left} />
-              </TouchableOpacity>
+              <HeaderButton/>
+            ),
+          }}
+        />
+        <Stack.Screen
+          name='Login'
+          component={LoginScreen}
+          options={{
+            title: "",
+            headerShadowVisible: GET_HIDDEN_SHADOW,
+            headerLeft: () => (
+              <HeaderButton/>
             ),
           }}
         />
@@ -77,22 +76,5 @@ const CatchyNavigationScreens = () => {
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  circle: {
-    width: 46,
-    height: 46,
-    borderWidth: 1,
-    borderColor: Colors.SECONDARY_OPACITY,
-    borderRadius: 100,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  left: {
-      width: 22,
-      height: 22,
-  }
-});
 
 export default CatchyNavigationScreens;
