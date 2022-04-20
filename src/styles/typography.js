@@ -20,12 +20,15 @@ export const FONT_SIZE_16 = 16;
 export const FONT_SIZE_50 = 50;
 
 //Line height
+export const LINE_HEIGHT_15 = 15.6;
 export const LINE_HEIGHT_25 = scaleFont(25.5);
 export const LINE_HEIGHT_28 =  28;
 export const LINE_HEIGHT_20 = 20.8;
+export const LINE_HEIGHT_16 = 16;
 export const LINE_HEIGHT_68 = 68;
 export const LINE_HEIGHT_26 = 26;
 export const LINE_HEIGHT_18 = 18.2;
+export const LINE_HEIGHT_23 = 23.4;
 
 //export default < 
 export const FONT_RENGULAR = {

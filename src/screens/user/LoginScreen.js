@@ -61,7 +61,7 @@ const LoginScreen = (props) => {
     },
 
     formIsValid: GET_VALUE_VALIDITES,
-    
+
   });
 
   const inputChangeHandler = useCallback(
@@ -160,6 +160,7 @@ const LoginScreen = (props) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={{ ...styles.btnSecondary, ...styles.btnFlexElement }}
+            onPress={() => props.navigation.navigate('Homescreen')}
           >
             <Apple style={styles.logo} />
             <Text style={styles.btnSecondaryTitle}>Sign up with Apple</Text>
