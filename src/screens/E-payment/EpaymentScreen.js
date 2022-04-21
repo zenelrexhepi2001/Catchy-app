@@ -33,7 +33,7 @@ const EpaymentScreen = ({ navigation }) => {
       .then(() => {
         setTimeout(() => {
           setLoading(false);
-        }, 2500);
+        }, 2000);
       })
       .catch((err) => {
          if(err) return console.log(err);

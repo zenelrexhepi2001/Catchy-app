@@ -12,6 +12,7 @@ export const FONT_WEIGHT_500 = '500';
 export const FONT_WEIGHT_EXTRA_BOLD = 'bold';
 
 //Font size
+export const FONT_SIZE_10 = 10;
 export const FONT_SIZE_12 = 12;
 export const FONT_SIZE_20 = 20;
 export const FONT_SIZE_22 = 22;
@@ -20,6 +21,7 @@ export const FONT_SIZE_16 = 16;
 export const FONT_SIZE_50 = 50;
 
 //Line height
+export const LINE_HEIGHT_13 = 13;
 export const LINE_HEIGHT_15 = 15.6;
 export const LINE_HEIGHT_21 = 21;
 export const LINE_HEIGHT_25 = scaleFont(25.5);

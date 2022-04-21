@@ -8,6 +8,7 @@ import VerificationCodeScreen from "../screens/user/verificationCodeScreen";
 import {HeaderButton} from '../components/atoms'
 import LoginScreen from "../screens/user/LoginScreen";
 import HomeScreen from "../screens/home/HomeScreen";
+import BottomTabNavigationScreens from "./bottomTabsNavigationScreens";
 
 
 const Stack = createNativeStackNavigator();
@@ -75,9 +76,9 @@ const CatchyNavigationScreens = () => {
         />
         <Stack.Screen
           name='Homescreen'
-          component={HomeScreen}
+          component={BottomTabNavigationScreens}
           options={{
-            headerShown: GET_HIDDEN_HEADER,
+            headerShown: false,
           }}
         />
       </Stack.Navigator>

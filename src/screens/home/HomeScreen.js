@@ -36,6 +36,7 @@ const HomeScreen = (props) => {
         setIsRefreshing(true);
 
     try {
+       console.log('');
     } catch (err) {
       if (err) return console.log(err);
     }
@@ -51,7 +52,7 @@ const HomeScreen = (props) => {
       .then(() => {
         setTimeout(() => {
           setIsLoading(false);
-        }, 3000);
+        }, 0);
       })
       .catch((err) => {
         if (err) return console.log(err);
@@ -67,6 +68,7 @@ const HomeScreen = (props) => {
     return (
       <View
         style={{
+          backgroundColor: Colors.WHITE,
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
