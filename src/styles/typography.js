@@ -33,6 +33,9 @@ export const LINE_HEIGHT_26 = 26;
 export const LINE_HEIGHT_18 = 18.2;
 export const LINE_HEIGHT_23 = 23.4;
 
+//text center
+export const TEXT_CENTER = 'center';
+
 //export default < 
 export const FONT_RENGULAR = {
     fontFamily: FONT_FAMILY_AVENIR_EXTRA_BOLD,

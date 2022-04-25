@@ -1,6 +1,7 @@
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/home/HomeScreen";
+import MyOrderScreen from "../screens/MyOrder/MyOrderScreen";
 
 import HomeIcon from "../assets/svg/home.svg";
 import ReceiptIcon from "../assets/svg/receipt.svg";
@@ -60,8 +61,8 @@ const BottomTabNavigationScreens = () => {
         }}
       />
       <Tab.Screen
-        name="My Order"
-        component={""}
+        name="MyOrder"
+        component={MyOrderScreen}
         options={{
           headerShown: GET_HEADER_HIDDEN,
           tabBarIcon: () => <ReceiptIcon style={styles.iconLabel} />,

@@ -2,12 +2,14 @@ import React from 'react';
 import {View,Text,StyleSheet,TouchableOpacity,Image} from 'react-native'; 
 import { Colors, Typography } from '../../styles';
 
+import Logo from '../../assets/svg/logo.svg';
+
 const Splashscreen = props => {
     return (
        <View style={styles.screen}>
            <View style={styles.container}>
                <TouchableOpacity>
-                   <Image source={require('../../assets/images/logo.png')}/>
+                  <Logo/>
                </TouchableOpacity>
                <Text style={styles.title}>Catchy</Text>
            </View>

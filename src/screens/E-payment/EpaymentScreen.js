@@ -10,8 +10,6 @@ import {
 import { Colors, Typography } from "../../styles";
 import Splashscreen from "../Splashscreen/SplashScreen";
 
-import Header from '../../assets/svg/Header.svg';
-
 const EpaymentScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -23,7 +21,7 @@ const EpaymentScreen = ({ navigation }) => {
     } catch (err) {
        setTimeout(() => {
         if(err) return console.warn(err);
-       },1000);
+       },500);
     }
   }, [setLoading, setError]);
 
@@ -33,12 +31,12 @@ const EpaymentScreen = ({ navigation }) => {
       .then(() => {
         setTimeout(() => {
           setLoading(false);
-        }, 2000);
+        }, 3500);
       })
       .catch((err) => {
          if(err) return console.log(err);
       }).finally(() => {
-          console.log('');
+          console.info('Finally...');
       })
   }, [loader]);
 

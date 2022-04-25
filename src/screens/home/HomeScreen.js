@@ -42,7 +42,7 @@ const HomeScreen = (props) => {
     }
     setTimeout(() => {
         setIsRefreshing(false);
-    },100);
+    },0);
 
   }, [dispatch, setIsError, setIsError]);
 
@@ -60,7 +60,7 @@ const HomeScreen = (props) => {
       .finally(() => {
         setTimeout(() => {
           console.log("Finally loader...");
-        }, 500);
+        }, 0);
       });
   }, [loader]);
 
@@ -86,6 +86,7 @@ const HomeScreen = (props) => {
            flex: 1,
            justifyContent: 'center',
            alignItems: 'center',
+           backgroundColor: Colors.WHITE,
        }}
       >
         <Text
@@ -130,7 +131,8 @@ const HomeScreen = (props) => {
             />
             <Text style={styles.title}>Catchy</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.notificationCircle}>
+          <TouchableOpacity style={styles.notificationCircle}
+          onPress={() => props.navigation.navigate('MyOrder')}>
             <NotificationLogo width={24} height={24} />
           </TouchableOpacity>
         </View>
