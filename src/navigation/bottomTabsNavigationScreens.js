@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/home/HomeScreen";
 import MyOrderScreen from "../screens/MyOrder/MyOrderScreen";
 import MessagesScreen from "../screens/Messages/MessagesScreen";
+import ProfileScreen from "../screens/profile/profileScreen";
 
 import HomeIcon from "../assets/svg/home.svg";
 import ReceiptIcon from "../assets/svg/receipt.svg";
@@ -79,7 +80,7 @@ const BottomTabNavigationScreens = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={""}
+        component={ProfileScreen}
         options={{
           headerShown: GET_HEADER_HIDDEN,
           tabBarIcon: () => <Profile style={styles.iconLabel} />,

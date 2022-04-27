@@ -7,6 +7,7 @@ export const FONT_FAMILY_OUTFIT = 'OutFit';
 
 //Font weight
 export const FONT_WEIGHT_800 = '800';
+export const FONT_WEIGHT_600 = '600';
 export const FONT_WEIGHT_400 = '700';
 export const FONT_WEIGHT_500 = '500';
 export const FONT_WEIGHT_EXTRA_BOLD = 'bold';
