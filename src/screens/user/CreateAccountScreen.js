@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
 
 //Components
@@ -18,7 +19,8 @@ import Phone from "../../assets/svg/phone.svg";
 import Password from "../../assets/svg/password.svg";
 import Google from "../../assets/svg/google.svg";
 
-import * as GoogleSignIn from 'expo-google-sign-in';
+import { useDispatch } from "react-redux";
+import * as authActions from '../../actions/auth';
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -46,7 +48,9 @@ const formReducer = (state, action) => {
 };
 
 const CreateAccountScreen = (props) => {
-
+  const [isSignUp,setIsSignUp] = useState(false);
+  const [error,setError] = useState();
+  const dispatch = useDispatch();
   const GET_VALUE_VALIDITES = false;
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
@@ -64,6 +68,13 @@ const CreateAccountScreen = (props) => {
     formIsValid: GET_VALUE_VALIDITES,
   });
 
+  useEffect(() => {
+    if(error) {
+      Alert.alert('An error ocurred error',[{text: 'Okay'}])
+    }
+  },[error]);
+
+ 
   const inputChangeHandler = useCallback(
     (inputIdentifier, inputValue, inputValidity) => {
       dispatchFormState({
@@ -154,7 +165,9 @@ const CreateAccountScreen = (props) => {
                   initialValue=""
                 />
               </View>
-              <TouchableOpacity style={styles.btnSecondary} onPress={() => props.navigation.navigate('verification-code')}>
+              <TouchableOpacity style={styles.btnSecondary}
+              onPress={() =>  props.navigation.navigate('Login')}
+              >
                 <Text style={styles.btnSecondaryTitle}>Create Account</Text>
               </TouchableOpacity>
             </ScrollView>

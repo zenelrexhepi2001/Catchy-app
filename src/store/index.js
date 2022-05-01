@@ -1,7 +1,6 @@
-import {combineReducers,createStore,applyMiddleware} from 'redux'; 
-import ReduxThunk from 'redux-thunk'; 
-import logger from 'redux-logger';
-import {composeWithDevTools} from 'redux-devtools-extension';
+import {createStore,combineReducers,applyMiddleware} from 'redux';
+import ReduxThunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import AuthReducer from '../reducers/auth';
 import FeaturesReducer from '../reducers/features';
 import ProductReducer from '../reducers/product';
@@ -12,4 +11,4 @@ const rootReducer = combineReducers({
    Product: ProductReducer,
 });
 
-export const store = createStore(rootReducer,applyMiddleware(ReduxThunk,logger));
+export const store = createStore(rootReducer,applyMiddleware(ReduxThunk));

@@ -49,17 +49,20 @@ const ProfileScreen = (props) => {
           <ScrollView overScrollMode="auto">
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Settings</Text>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button}
+              onPress={() => props.navigation.navigate('Edit-profile')}>
                 <Lock style={styles.logo} />
                 <Text style={styles.buttonTitle}>Change Password</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button}>
+              <TouchableOpacity style={styles.button} 
+              onPress={() => props.navigation.navigate('Language')}
+              >
                 <Language style={styles.logo} />
                 <Text style={styles.buttonTitle}>Language</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.button}>
                 <Notification style={styles.logo} />
-                <Text style={styles.buttonTitle}>Change Password</Text>
+                <Text style={styles.buttonTitle}>Notification</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.section}>

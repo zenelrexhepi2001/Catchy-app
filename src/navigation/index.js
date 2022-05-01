@@ -9,7 +9,9 @@ import {HeaderButton} from '../components/atoms'
 import LoginScreen from "../screens/user/LoginScreen";
 import HomeScreen from "../screens/home/HomeScreen";
 import BottomTabNavigationScreens from "./bottomTabsNavigationScreens";
-
+import LanguageScreen from "../screens/Language/LanguageScreen";
+import EditProfileScreen from "../screens/Edit-profile/EditProfileScreen";
+import { Colors,Typography} from "../styles";
 
 const Stack = createNativeStackNavigator();
 
@@ -78,7 +80,41 @@ const CatchyNavigationScreens = () => {
           name='Homescreen'
           component={BottomTabNavigationScreens}
           options={{
-            headerShown: false,
+            headerShown: GET_HIDDEN_HEADER,
+          }}
+        />
+        <Stack.Screen
+          name='Language'
+          component={LanguageScreen}
+          options={{
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              color: Colors.TEXT_COLOR,
+              fontSize: Typography.FONT_SIZE_16,
+              fontFamily: Typography.FONT_FAMILY_AVENIR_EXTRA_BOLD,
+              lineHeight: Typography.LINE_HEIGHT_20,
+            },
+            headerShadowVisible: GET_HIDDEN_SHADOW,
+            headerLeft: () => (
+              <HeaderButton/>
+            ),
+          }}
+        />
+         <Stack.Screen
+          name='Edit-profile'
+          component={EditProfileScreen}
+          options={{
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+              color: Colors.TEXT_COLOR,
+              fontSize: Typography.FONT_SIZE_16,
+              fontFamily: Typography.FONT_FAMILY_AVENIR_EXTRA_BOLD,
+              lineHeight: Typography.LINE_HEIGHT_20,
+            },
+            headerShadowVisible: GET_HIDDEN_SHADOW,
+            headerLeft: () => (
+              <HeaderButton/>
+            ),
           }}
         />
       </Stack.Navigator>

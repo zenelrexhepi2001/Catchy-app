@@ -39,23 +39,27 @@ const Input = (props) => {
   }, [inputState, onInputChange, id]);
 
   const textChangeHandler = (text) => {
+    //Values true and false 
+    const GET_VALID_REQUEST = false;
+    const GET_VALID_REQUEST_IS_VALID = true;
+    
     const emailRegex =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let isValid = true;
+    let isValid = GET_VALID_REQUEST_IS_VALID;
     if (props.required && text.trim().length === 0) {
-      isValid = false;
+      isValid = GET_VALID_REQUEST;
     }
     if (props.email && !emailRegex.test(text.toLowerCase())) {
-      isValid = false;
+      isValid = GET_VALID_REQUEST;
     }
     if (props.min != null && +text < props.min) {
-      isValid = false;
+      isValid = GET_VALID_REQUEST;
     }
     if (props.max != null && +text > props.max) {
-      isValid = false;
+      isValid = GET_VALID_REQUEST;
     }
     if (props.minLength != null && text.length < props.minLength) {
-      isValid = false;
+      isValid = GET_VALID_REQUEST;
     }
     dispatch({ type: GET_CHANGE_INPUT, value: text, isValid: isValid });
   };
