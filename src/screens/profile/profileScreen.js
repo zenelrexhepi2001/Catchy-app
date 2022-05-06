@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   View,
   Text,
@@ -20,7 +20,10 @@ import Share from "../../assets/svg/Share.svg";
 import Team from "../../assets/svg/Team.svg";
 import Mobile from "../../assets/svg/Mobile.svg";
 
+import { Context as AuthContext, Context } from "../../context/AuthContext";
+
 const ProfileScreen = (props) => {
+  const { state, signout } = useContext(AuthContext);
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
@@ -35,8 +38,8 @@ const ProfileScreen = (props) => {
               <ProfileAvatar style={styles.image} />
             </TouchableOpacity>
             <View style={styles.profileContent}>
-              <Text style={styles.profileTitle}>Zenel Rexhepi</Text>
-              <Text style={styles.profileNumber}>+383 45 241 393</Text>
+              <Text style={styles.profileTitle}>{state.displayName}</Text>
+              <Text style={styles.profileNumber}>{state.email}</Text>
             </View>
           </View>
           <TouchableOpacity style={styles.btnSecondary}>
@@ -49,13 +52,16 @@ const ProfileScreen = (props) => {
           <ScrollView overScrollMode="auto">
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Settings</Text>
-              <TouchableOpacity style={styles.button}
-              onPress={() => props.navigation.navigate('Edit-profile')}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => props.navigation.navigate("Edit-profile")}
+              >
                 <Lock style={styles.logo} />
                 <Text style={styles.buttonTitle}>Change Password</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.button} 
-              onPress={() => props.navigation.navigate('Language')}
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => props.navigation.navigate("Language")}
               >
                 <Language style={styles.logo} />
                 <Text style={styles.buttonTitle}>Language</Text>
@@ -90,6 +96,15 @@ const ProfileScreen = (props) => {
                 <Mobile style={styles.logo} />
                 <Text style={styles.buttonTitle}>Get The Latest Version</Text>
               </TouchableOpacity>
+            </View>
+            <View style={styles.footer}>
+              <TouchableOpacity style={styles.btnDanger} onPress={signout}>
+                <Text style={styles.dangerTitle}>Log out</Text>
+              </TouchableOpacity>
+              <Text style={styles.textGray}>
+                Logged in as
+                <Text style={styles.textDark}> {state.email}</Text>
+              </Text>
             </View>
           </ScrollView>
         </View>
@@ -205,7 +220,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 500,
     maxHeight: "100%",
-    overflow: 'hidden',
+    overflow: "hidden",
   },
 
   section: {
@@ -248,6 +263,45 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     marginRight: 14,
+  },
+
+  btnDanger: {
+    backgroundColor: Colors.DANGER,
+    alignItems: "center",
+    width: "100%",
+    maxWidth: "100%",
+    borderRadius: 20,
+    paddingLeft: 14,
+    paddingRight: 14,
+    paddingTop: 11,
+    paddingBottom: 11,
+  },
+
+  dangerTitle: {
+    color: "red",
+    fontSize: 16,
+    fontFamily: Typography.FONT_FAMILY_OUTFIT,
+    fontWeight: Typography.FONT_WEIGHT_800,
+    lineHeight: Typography.LINE_HEIGHT_20,
+  },
+
+  textGray: {
+    color: "#999",
+    fontSize: 10,
+    fontFamily: Typography.FONT_FAMILY_OUTFIT,
+    fontWeight: Typography.FONT_WEIGHT_800,
+    lineHeight: Typography.LINE_HEIGHT_20,
+    position: "relative",
+    top: 5,
+    textAlign: "center",
+  },
+
+  textDark: {
+    color: Colors.TEXT_COLOR,
+    fontSize: 10,
+    fontFamily: Typography.FONT_FAMILY_OUTFIT,
+    fontWeight: Typography.FONT_WEIGHT_800,
+    lineHeight: Typography.LINE_HEIGHT_20,
   },
 });
 

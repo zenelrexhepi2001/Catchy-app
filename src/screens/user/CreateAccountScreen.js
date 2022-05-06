@@ -1,4 +1,10 @@
-import React, { useReducer, useCallback, useState, useEffect } from "react";
+import React, {
+  useReducer,
+  useCallback,
+  useState,
+  useEffect,
+  useContext,
+} from "react";
 import {
   View,
   Text,
@@ -6,7 +12,9 @@ import {
   TouchableOpacity,
   ScrollView,
   KeyboardAvoidingView,
+  ActivityIndicator,
   Alert,
+  TextInput,
 } from "react-native";
 
 //Components
@@ -20,7 +28,9 @@ import Password from "../../assets/svg/password.svg";
 import Google from "../../assets/svg/google.svg";
 
 import { useDispatch } from "react-redux";
-import * as authActions from '../../actions/auth';
+
+//import {ProviderContext as  ProviderContext} from '../../context/AuthContext';
+import { Context as AuthContext, Context } from "../../context/AuthContext";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -48,15 +58,22 @@ const formReducer = (state, action) => {
 };
 
 const CreateAccountScreen = (props) => {
-  const [isSignUp,setIsSignUp] = useState(false);
-  const [error,setError] = useState();
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState();
+  // const {state,signin} = useContext(AuthContext);
+  const { state, signup,signUpWithGoogle } = useContext(Context);
+
+
   const dispatch = useDispatch();
+
   const GET_VALUE_VALIDITES = false;
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
       name: "",
-      phoneNumber: "",
+      email: "",
       password: "",
     },
 
@@ -68,13 +85,6 @@ const CreateAccountScreen = (props) => {
     formIsValid: GET_VALUE_VALIDITES,
   });
 
-  useEffect(() => {
-    if(error) {
-      Alert.alert('An error ocurred error',[{text: 'Okay'}])
-    }
-  },[error]);
-
- 
   const inputChangeHandler = useCallback(
     (inputIdentifier, inputValue, inputValidity) => {
       dispatchFormState({
@@ -106,7 +116,7 @@ const CreateAccountScreen = (props) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={{ ...styles.btnPrimary, ...styles.btnLight }}
-                onPress={() => props.navigation.navigate('Login')}
+                onPress={() => props.navigation.navigate("login")}
               >
                 <Text style={{ ...styles.btnTitle, ...styles.secondaryTitle }}>
                   Sign In
@@ -117,60 +127,45 @@ const CreateAccountScreen = (props) => {
         </View>
         <View style={styles.form}>
           <KeyboardAvoidingView>
-            <ScrollView>
-              <View style={styles.formControlElement}>
-                <Text style={styles.label}>Full Name</Text>
-                <User style={styles.icon} />
-                <Input
-                  id="name"
-                  placeholder="Enter your name"
-                  keyboardType="default"
-                  required
-                  name
-                  autoCapitalize="none"
-                  errorText="Please enter a valid Name"
-                  onInputChange={inputChangeHandler}
-                  initialValue=""
-                />
-              </View>
-              <View style={styles.formControlElement}>
-                <Text style={styles.label}>Phone Number</Text>
-                <Phone style={styles.icon} />
-                <Input
-                  id="phoneNumber"
-                  placeholder="Enter your number"
-                  keyboardType="default"
-                  required
-                  phoneNumber
-                  autoCapitalize="none"
-                  errorText="Please enter a valid Phone Number"
-                  onInputChange={inputChangeHandler}
-                  initialValue=""
-                />
-              </View>
-              <View style={styles.formControlElement}>
-                <Text style={styles.label}>Password</Text>
-                <Password style={styles.icon} />
-                <Input
-                  placeholder="Enter your password"
-                  id="password"
-                  label="password"
-                  keyboardType="default"
-                  secureTextEntry
-                  required
-                  minLength={5}
-                  autoCapitalize="none"
-                  errorText="Please enter a valid password"
-                  onInputChange={inputChangeHandler}
-                  initialValue=""
-                />
-              </View>
-              <TouchableOpacity style={styles.btnSecondary}
-              onPress={() =>  props.navigation.navigate('Login')}
-              >
-                <Text style={styles.btnSecondaryTitle}>Create Account</Text>
-              </TouchableOpacity>
-            </ScrollView>
+            <View style={styles.formControl}>
+              <Text style={styles.label}>name</Text>
+              <Phone style={styles.icon} />
+              <TextInput
+                placeholder="name"
+                value={name}
+                onChangeText={setName}
+                style={styles.formControlElement}
+              />
+            </View>
+            <View style={styles.formControl}>
+              <Text style={styles.label}>Email/PhoneNumber</Text>
+              <Phone style={styles.icon} />
+              <TextInput
+                placeholder="email"
+                value={email}
+                onChangeText={setEmail}
+                style={styles.formControlElement}
+              />
+            </View>
+            <View style={styles.formControl}>
+              <Text style={styles.label}>Password</Text>
+              <Password style={styles.icon} />
+              <TextInput
+                placeholder="password"
+                value={password}
+                onChangeText={setPassword}
+                maxLength={20}
+                style={styles.formControlElement}
+              />
+            </View>
+            <TouchableOpacity
+              style={styles.btnSecondary}
+              onPress={() => {
+                signup({ email, password, name });
+              }}
+            >
+              <Text style={styles.btnSecondaryTitle}>Create Account</Text>
+            </TouchableOpacity>
           </KeyboardAvoidingView>
         </View>
         <View style={styles.footer}>
@@ -180,6 +175,7 @@ const CreateAccountScreen = (props) => {
           </Text>
           <TouchableOpacity
             style={{ ...styles.btnSecondary, ...styles.buttonLight }}
+            onPress={() => signUpWithGoogle({email})}
           >
             <Google style={styles.logo} />
             <Text style={{ ...styles.btnSecondaryTitle, ...styles.dark }}>
@@ -280,8 +276,22 @@ const styles = StyleSheet.create({
     paddingTop: 24,
   },
 
-  formControlElement: {
+  formControl: {
     marginBottom: 22,
+  },
+
+  formControlElement: {
+    width: "100%",
+    height: 52,
+    fontSize: 14,
+    color: Colors.BLACK_OPACITY,
+    fontFamily: Typography.FONT_FAMILY_AVENIR_NORMAL,
+    fontWeight: Typography.FONT_WEIGHT_400,
+    lineHeight: Typography.LINE_HEIGHT_25,
+    borderWidth: 1,
+    borderColor: Colors.SECONDARY_OPACITY,
+    paddingLeft: 40,
+    borderRadius: 20,
   },
 
   label: {

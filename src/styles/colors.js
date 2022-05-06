@@ -6,3 +6,5 @@ export const BLACK = '#000000';
 export const BLACK_OPACITY = '#1D272F';
 export const TEXT_COLOR = '#191D31';
 export const EXTRA_LIGHT = '#F3F3F3';
+export const DANGER = '#ffefea';
+export const TEXT_DANGER = '#ffb09c';

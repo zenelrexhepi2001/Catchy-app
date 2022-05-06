@@ -82,7 +82,6 @@ const EditProfileScreen = (props) => {
   const [image, setImage] = useState(null);
 
   const takeImage = async () => {
-    try {
       const GET_ALLOW_EDITING = true;
       const GET_ASPECT = [4, 3];
       const GET_QUALITY = 1;
@@ -93,9 +92,22 @@ const EditProfileScreen = (props) => {
         quality: GET_QUALITY,
       });
 
-      await AsyncStorage.setItem("@store", JSON.stringify(result));
+      try {
+          const  saveImage = await AsyncStorage.setItem('@store',JSON.stringify(result));
+          console.warn(saveImage);
+      }catch (err) {
+           setTimeout(() => {
+               console.log(err);
+           },1000);
+      }finally {
+          console.log('Successfully...');
+      }
 
-      console.log(result);
+       const dataImage = await AsyncStorage.setItem('@store',JSON.stringify(result));
+
+       const removeItems = await AsyncStorage.removeItem('@store');
+
+       console.log(result);
 
       if (!result.cancelled) {
         setTimeout(() => {
@@ -103,9 +115,6 @@ const EditProfileScreen = (props) => {
           console.log("Successfully");
         }, 500);
       }
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   return (

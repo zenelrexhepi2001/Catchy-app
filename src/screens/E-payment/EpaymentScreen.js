@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import {
   View,
   Text,
@@ -10,9 +10,13 @@ import {
 import { Colors, Typography } from "../../styles";
 import Splashscreen from "../Splashscreen/SplashScreen";
 
+import { Context as AuthContext, Context } from "../../context/AuthContext";
+
 const EpaymentScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const {state,signInGuest} = useContext(Context);
 
   const loader = useCallback(async () => {
     setError(null);
@@ -31,7 +35,7 @@ const EpaymentScreen = ({ navigation }) => {
       .then(() => {
         setTimeout(() => {
           setLoading(false);
-        }, 3500);
+        }, 0);
       })
       .catch((err) => {
          if(err) return console.log(err);
@@ -43,6 +47,8 @@ const EpaymentScreen = ({ navigation }) => {
   if (loading) {
     return <Splashscreen />;
   }
+
+  const signin = React.useContext(AuthContext);
 
   return (
     <View style={styles.screen}>
@@ -75,7 +81,7 @@ const EpaymentScreen = ({ navigation }) => {
           <View style={styles.btn}>
             <TouchableOpacity
               style={styles.btnPrimary}
-              onPress={() => navigation.navigate("Delivery")}
+              onPress={() => navigation.navigate("auth")}
             >
               <Text style={styles.btnTitle}>Create Account</Text>
             </TouchableOpacity>
@@ -83,7 +89,9 @@ const EpaymentScreen = ({ navigation }) => {
           <View style={styles.btn}>
             <TouchableOpacity
               style={{ ...styles.btnPrimary, ...styles.btnLight }}
-              onPress={() => navigation.navigate('Welcome')}
+              onPress={() => {
+                signInGuest({email: '',password: ''})
+              }}
             >
               <Text style={{ ...styles.btnTitle, ...styles.textDark }}>
                 Sign In as Guest

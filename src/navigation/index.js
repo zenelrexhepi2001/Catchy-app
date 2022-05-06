@@ -1,3 +1,4 @@
+import React from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import WelcomeScreen from "../screens/Welcome/WelcomeScreen";
@@ -12,22 +13,60 @@ import BottomTabNavigationScreens from "./bottomTabsNavigationScreens";
 import LanguageScreen from "../screens/Language/LanguageScreen";
 import EditProfileScreen from "../screens/Edit-profile/EditProfileScreen";
 import { Colors,Typography} from "../styles";
+import {Context} from '../context/AuthContext';
 
 const Stack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator();
+
+
 
 const GET_HIDDEN_HEADER = false;
 const GET_HIDDEN_SHADOW = false;
 
+const AuthFlow =()=> {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen
+        component={CreateAccountScreen}
+        name='create-account'
+        options={{
+          title: "",
+          headerShadowVisible: GET_HIDDEN_SHADOW,
+          headerLeft: () => (
+            <HeaderButton/>
+          ),
+        }}
+      />
+       <AuthStack.Screen
+        component={LoginScreen}
+        name='login'
+        options={{
+          title: "",
+          headerShadowVisible: GET_HIDDEN_SHADOW,
+          headerLeft: () => (
+            <HeaderButton/>
+          ),
+        }}
+      />
+    </AuthStack.Navigator>
+  )
+}
+
 const CatchyNavigationScreens = () => {
+    const {state} = React.useContext(Context);
+    console.log(state);
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      {state.token === null? (
+        <>
         <Stack.Screen
           name="Home"
           component={EpaymentScreen}
           options={{
             headerShown: GET_HIDDEN_HEADER,
           }}
+          
         />
         <Stack.Screen
           name="Delivery"
@@ -43,17 +82,7 @@ const CatchyNavigationScreens = () => {
             headerShown: GET_HIDDEN_HEADER,
           }}
         />
-        <Stack.Screen
-          name="create-account"
-          component={CreateAccountScreen}
-          options={{
-            title: "",
-            headerShadowVisible: GET_HIDDEN_SHADOW,
-            headerLeft: () => (
-              <HeaderButton/>
-            ),
-          }}
-        />
+      
         <Stack.Screen
            name='verification-code'
            component={VerificationCodeScreen}
@@ -65,24 +94,28 @@ const CatchyNavigationScreens = () => {
             ),
           }}
         />
+        
+      
+      
         <Stack.Screen
-          name='Login'
-          component={LoginScreen}
+          name="auth"
+          component={AuthFlow}
           options={{
-            title: "",
-            headerShadowVisible: GET_HIDDEN_SHADOW,
-            headerLeft: () => (
-              <HeaderButton/>
-            ),
+            headerShown: GET_HIDDEN_HEADER,
           }}
+         
         />
+      </>
+      ) : (
+        <>
         <Stack.Screen
           name='Homescreen'
           component={BottomTabNavigationScreens}
           options={{
             headerShown: GET_HIDDEN_HEADER,
-          }}
-        />
+          }}/>
+     
+     
         <Stack.Screen
           name='Language'
           component={LanguageScreen}
@@ -100,6 +133,7 @@ const CatchyNavigationScreens = () => {
             ),
           }}
         />
+    
          <Stack.Screen
           name='Edit-profile'
           component={EditProfileScreen}
@@ -117,7 +151,10 @@ const CatchyNavigationScreens = () => {
             ),
           }}
         />
+       </>
+      )}
       </Stack.Navigator>
+      
     </NavigationContainer>
   );
 };

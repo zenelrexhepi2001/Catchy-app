@@ -1,6 +1,9 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useContext, useEffect, useReducer,useState } from "react";
 import { View, StyleSheet, TextInput, Text } from "react-native";
 import { Colors, Typography } from "../../styles";
+import {
+  Context as AuthContext, Context
+} from "../../context/AuthContext";
 
 export const GET_CHANGE_INPUT = "GET_CHANGE_INPUT";
 export const GET_CHANGE_INPUT_BLUR = "GET_BORDER_INPUT";
@@ -31,6 +34,7 @@ const Input = (props) => {
   });
 
   const { onInputChange, id } = props;
+  const {state,signin} = useContext(AuthContext);
 
   useEffect(() => {
     if (inputState.touched) {
@@ -38,10 +42,17 @@ const Input = (props) => {
     }
   }, [inputState, onInputChange, id]);
 
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+
   const textChangeHandler = (text) => {
+
     //Values true and false 
     const GET_VALID_REQUEST = false;
     const GET_VALID_REQUEST_IS_VALID = true;
+
+    setEmail();
+    setPassword();
     
     const emailRegex =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -71,11 +82,11 @@ const Input = (props) => {
   return (
     <>
       <TextInput
-        {...props}
-        style={styles.formControlElement}
-        value={inputState.value}
-        onChangeText={textChangeHandler}
-        onBlur={lostFocusHandler}
+       {...props}
+       style={styles.formControlElement}
+       value={inputState.value}
+       onChangeText={textChangeHandler}
+       onBlur={lostFocusHandler}
       />
       {!inputState.isValid && inputState.touched && (
         <View style={styles.row}>
