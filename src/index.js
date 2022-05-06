@@ -3,7 +3,8 @@ import { useFonts } from "expo-font";
 import CatchyNavigationScreens from "./navigation/index";
 import { Provider } from "react-redux";
 import {
-  ProviderAuth as AuthContext, ProviderAuth
+  ProviderAuth as AuthContext,
+  ProviderAuth,
 } from "./context/AuthContext";
 import store from "./store";
 
@@ -20,10 +21,10 @@ const App = (props) => {
   }
 
   return (
-      <Provider store={store}>
-    <ProviderAuth>
+    <Provider store={store}>
+      <ProviderAuth>
         <CatchyNavigationScreens />
-    </ProviderAuth>
+      </ProviderAuth>
     </Provider>
   );
 };
